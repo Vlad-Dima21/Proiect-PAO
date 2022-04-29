@@ -1,13 +1,25 @@
 package com.proiect.services;
 
 import com.proiect.domain.Client;
-import com.proiect.domain.Locatie;
+import com.proiect.services.io.ClientIO;
 import com.proiect.persistence.ClientRepository;
 
-import java.util.Set;
+import java.io.IOException;
 
 public class ClientService {
     private ClientRepository clientRepository = new ClientRepository();
+    private ClientIO clientIO = new ClientIO();
+
+    {
+        try {
+            for (Client client : clientIO.getAllFromCSV()) {
+                clientRepository.add(client);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.exit(-1);
+        }
+    }
 
     public void AdaugareClient(String nume, String prenume, String email, String telefon) {
         nume = nume.trim();
@@ -39,5 +51,9 @@ public class ClientService {
 
     public Client getClientById(int id) {
         return clientRepository.get(id);
+    }
+
+    public void writeDataToFiles() throws IOException {
+        clientIO.writeAllToCSV(clientRepository.getAll());
     }
 }

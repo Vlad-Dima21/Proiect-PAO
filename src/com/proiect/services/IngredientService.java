@@ -1,12 +1,26 @@
 package com.proiect.services;
 
 import com.proiect.domain.Ingredient;
+import com.proiect.services.io.IngredientIO;
 import com.proiect.persistence.IngredientRepository;
 
+import java.io.IOException;
 import java.util.Vector;
 
 public class IngredientService {
     private IngredientRepository ingredienteRepository = new IngredientRepository();
+    private IngredientIO ingredientIO = new IngredientIO();
+
+    {
+        try {
+            for (Ingredient ingredient : ingredientIO.getAllFromCSV()) {
+                ingredienteRepository.add(ingredient);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.exit(-1);
+        }
+    }
 
     public Vector getStocMic() {
         Vector numeIngrediente = new Vector();
@@ -37,5 +51,9 @@ public class IngredientService {
 
     public Ingredient getIngredient(int idx) {
         return ingredienteRepository.getAll().get(idx);
+    }
+
+    public void writeDataToFiles() throws IOException {
+        ingredientIO.writeAllToCSV(ingredienteRepository.getAll());
     }
 }

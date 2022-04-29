@@ -64,4 +64,13 @@ public class Client {
     public int getIdClient() {
         return idClient;
     }
+
+    public String toCSVformat() {
+        StringBuilder str = new StringBuilder();
+        str.append(this.nume).append(',')
+                .append(this.prenume).append(',')
+                .append(this.email).append(',')
+                .append(this.telefon);
+        return str.toString();
+    }
 }

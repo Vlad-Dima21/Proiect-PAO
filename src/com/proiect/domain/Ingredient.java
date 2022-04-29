@@ -43,4 +43,11 @@ public class Ingredient {
     public double getRaportStoc() {
         return (double)stoc/stocLunar;
     }
+
+    public String toCSVformat() {
+        return nume + ',' +
+                stoc + ',' +
+                stocLunar + ',' +
+                numeFurnizor;
+    }
 }

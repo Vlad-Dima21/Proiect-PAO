@@ -3,6 +3,7 @@ package com.proiect.view;
 import com.proiect.domain.*;
 import com.proiect.services.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ import java.util.Vector;
 import static java.lang.System.out;
 
 public class ConsoleApp {
+    private AuditingService auditingService = new AuditingService();
     private CofetarieService cofetarieService = new CofetarieService();
     private ClientService clientService = new ClientService();
     private IngredientService ingredienteService = new IngredientService();
@@ -50,11 +52,15 @@ public class ConsoleApp {
                     case (1): {
                         out.println(multeLinii + cofetarieService.formatAfisareCofetarii());
                         scanner.nextLine();out.print("\nApasati enter...");scanner.nextLine();
+
+                        auditingService.registerLog("Vizualizare cofetarii");
                         break;
                     }
                     case (2): {
                         out.println(multeLinii + cofetarieService.getCofetariiDeschise());
                         scanner.nextLine();out.print("\nApasati enter...");scanner.nextLine();
+
+                        auditingService.registerLog("Obtinere lista cu cofetarii deschise");
                         break;
                     }
                     case (3): {
@@ -69,6 +75,8 @@ public class ConsoleApp {
                         clientService.AdaugareClient(nume,prenume,email,telefon);
                         out.println("Clientul a fost adaugat!");
                         scanner.nextLine();out.print("\nApasati enter...");scanner.nextLine();
+
+                        auditingService.registerLog("Adaugare client");
                         break;
                     }
                     case (4): {
@@ -76,6 +84,8 @@ public class ConsoleApp {
                         String nume = scanner.next();
                         out.println(clientService.GasireTelefonDupaNume(nume));
                         scanner.nextLine();out.print("\nApasati enter...");scanner.nextLine();
+
+                        auditingService.registerLog("Interogare numar telefon client dupa nume");
                         break;
                     }
                     case (5): {
@@ -92,12 +102,17 @@ public class ConsoleApp {
                             }
                         }
                         scanner.nextLine();out.print("\nApasati enter...");scanner.nextLine();
+
+                        auditingService.registerLog("Ingrediente cu stocul sub 50%");
                         break;
                     }
                     case (6): {
                         ingredienteService.setStocReaprovizionare();
                         out.println(multeLinii + "Stocul a fost reaprovizionat.");
                         scanner.nextLine();out.print("\nApasati enter...");scanner.nextLine();
+
+                        auditingService.registerLog("Actualizare stoc reaprovizionare");
+                        break;
                     }
                     case (7): {
                         out.println(multeLinii);
@@ -129,6 +144,8 @@ public class ConsoleApp {
                         double gramajPrajitura = scanner.nextDouble();
                         prajituraService.crearePrajitura(nume, pret, ingredientePrajitura, gramajPrajitura);
                         scanner.nextLine();out.print("\nApasati enter...");scanner.nextLine();
+
+                        auditingService.registerLog("Creare si adaugare prajitura ( fara discount )");
                         break;
                     }
                     case (8): {
@@ -141,6 +158,8 @@ public class ConsoleApp {
                             out.println("Produsul a fost sters.");
                         }
                         scanner.nextLine();out.print("\nApasati enter...");scanner.nextLine();
+
+                        auditingService.registerLog("Stergere produs dupa ID");
                         break;
                     }
                     case (9): {
@@ -198,6 +217,8 @@ public class ConsoleApp {
                         comandaService.CreareComanda(client, locatie, produseArray);
                         out.println("\nComanda a fost adaugata!");
                         scanner.nextLine();out.print("\nApasati enter...");scanner.nextLine();
+
+                        auditingService.registerLog("Creare comanda");
                         break;
                     }
                     case (10): {
@@ -206,6 +227,8 @@ public class ConsoleApp {
                         int salariu = scanner.nextInt();
                         out.println(angajatService.AngajatiCuSalariulMaxim(salariu));
                         scanner.nextLine();out.print("\nApasati enter...");scanner.nextLine();
+
+                        auditingService.registerLog("Afisare angajati cu salariul mai mic de..");
                         break;
                     }
                     case (11): {
@@ -218,6 +241,8 @@ public class ConsoleApp {
                         soferLivrariService.ActualizareTelefon(idSofer, telefon);
                         out.println("Numarul a fost schimbat!");
                         scanner.nextLine();out.print("\nApasati enter...");scanner.nextLine();
+
+                        auditingService.registerLog("Actualizare numar telefon sofer livrari");
                         break;
                     }
                     case (12): {
@@ -231,11 +256,30 @@ public class ConsoleApp {
                         String parolaNoua = scanner.next();
                         out.println(operatorComenziService.SchimbareParola(idOp, parolaVeche, parolaNoua));
                         scanner.nextLine();out.print("\nApasati enter...");scanner.nextLine();
+
+                        auditingService.registerLog("Schimbare parola operator comenzi");
                         break;
                     }
                 }
             } while (optiune != 13);
+        try {
+            angajatService.writeDataToFiles();
+        } catch (IOException e) {
+            out.println("Eroare la scrierea in fisiere a angajatilor");
         }
+
+        try {
+            clientService.writeDataToFiles();
+        } catch (IOException e) {
+            out.println("Eroare la scrierea in fisier a clientilor");
+        }
+
+        try {
+            ingredienteService.writeDataToFiles();
+        } catch (IOException e) {
+            out.println("Eroare la scrierea in fisier a ingredientelor");
+        }
+    }
 
     public static void main(String[] args) {
         ConsoleApp app = new ConsoleApp();

@@ -9,12 +9,7 @@ import java.util.Set;
 
 public class ClientRepository implements GenericRepository<Client>{
 
-    private static Set clienti = new HashSet();
-
-    static {
-        clienti.add(new Client("Dima", "Vlad", "vlad@email.ro", "072xx"));
-        clienti.add(new Client("Oana", "Popescu", "oana@email.ro", "073xx"));
-    }
+    private static Set<Client> clienti = new HashSet<>();
 
     @Override
     public void add(Client entity) {
@@ -23,9 +18,9 @@ public class ClientRepository implements GenericRepository<Client>{
 
     @Override
     public Client get(int id) {
-        for (Object client : clienti) {
-            if (((Client)client).getIdClient() == id) {
-                return ((Client)client);
+        for (Client client : clienti) {
+            if (client.getIdClient() == id) {
+                return client;
             }
         }
         return null;
@@ -48,8 +43,7 @@ public class ClientRepository implements GenericRepository<Client>{
 
     @Override
     public List<Client> getAll() {
-        List<Client> listaClienti = new ArrayList<>();
-        listaClienti.addAll(clienti);
+        List<Client> listaClienti = new ArrayList<>(clienti);
         return listaClienti;
     }
 }

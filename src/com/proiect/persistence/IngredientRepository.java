@@ -8,17 +8,7 @@ import java.util.List;
 import java.util.Vector;
 
 public class IngredientRepository implements GenericRepository<Ingredient>{
-    private static Vector ingrediente = new Vector();
-
-    static {
-        ingrediente.addAll(Arrays.asList(
-                new Ingredient("cacao", 100, 200, "EUROFOOD TRADING"),
-                new Ingredient("lamaie", 45, 200, "EUROFOOD TRADING"),
-                new Ingredient("vanilie", 100, 100, "ASIMENIA"),
-                new Ingredient("lapte", 40, 100, "CARMO-LACT PROD"),
-                new Ingredient("faina", 10, 200, "BCZL AGRICOLA")));
-    }
-
+    private static Vector<Ingredient> ingrediente = new Vector<>();
 
     @Override
     public void add(Ingredient entity) {
@@ -27,9 +17,9 @@ public class IngredientRepository implements GenericRepository<Ingredient>{
 
     @Override
     public Ingredient get(int id) {
-        for (Object ingredient : ingrediente) {
-            if (((Ingredient)ingredient).getIdIngredient() == id) {
-                return ((Ingredient) ingredient);
+        for (Ingredient ingredient : ingrediente) {
+            if (ingredient.getIdIngredient() == id) {
+                return ingredient;
             }
         }
         return null;

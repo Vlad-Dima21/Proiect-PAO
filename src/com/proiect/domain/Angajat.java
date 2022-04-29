@@ -14,6 +14,7 @@ public abstract class Angajat {
     protected String cnp;
     protected String telefon;
 
+
     static {
         contorId = 0;
     }

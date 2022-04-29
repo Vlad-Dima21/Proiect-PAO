@@ -26,4 +26,26 @@ public class OperatorComenzi extends Angajat {
     public boolean parolaCorecta(String parolaInput) {
         return parolaAngajat.equals(parolaInput);
     }
+
+    public String toCSVFormat() {
+        StringBuilder str = new StringBuilder();
+        str.append(this.nume).append(",")
+                .append(this.prenume).append(',')
+                .append(this.salariu).append(',')
+                .append(this.sex).append(',')
+                .append(this.cnp).append(',')
+                .append(this.telefon).append(',')
+                .append('[').append(this.program[0]).append(' ')
+                .append(this.program[1]).append("],")
+                .append('[');
+
+        int i;
+        for (i = 0; i < Array.getLength(this.zileLucratoare) - 1; i++) {
+            str.append(this.zileLucratoare[i]).append(' ');
+        }
+        str.append(this.zileLucratoare[i]).append("],")
+                .append(this.coefiecientBonus).append(',')
+                .append(this.parolaAngajat);
+        return str.toString();
+    }
 }
