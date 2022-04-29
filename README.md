@@ -39,3 +39,11 @@ Operațiile ce pot fi efectuate direct din meniul aplicației sunt:
 12. Schimbare parolă operator comenzi
 
 (Este foarte posibil să adaug și să le înlocuiesc pe parcursul etapelor 2 și 3)
+
+## Etapa 2
+### Stocare in fisiere CSV
+
+Obiectele de tip **Client**, **Ingredient**, **Opeatator Comanda** și **Sofer Livrari** sunt stocate în fișiere separate de tip CSV.
+
+### Auditing
+Fiecare acțiune de la etapa 1 este înregistrată într-un fișier CSV. 
