@@ -35,8 +35,7 @@ Operațiile ce pot fi efectuate direct din meniul aplicației sunt:
 10. Afișare angajați cu salariul mai mic de..
 11. Actualizare număr telefon șofer livrări
 12. Schimbare parolă operator comenzi
-
-(Este foarte posibil să adaug și să le înlocuiesc pe parcursul etapelor 2 și 3)
+13. Stergere client
 
 ## Etapa 2
 ### Stocare in fisiere CSV
@@ -48,4 +47,4 @@ Fiecare acțiune de la etapa 1 este înregistrată într-un fișier CSV.
 
 ## Etapa 3
 ### Persistență
-Operațiile CRUD pe obiectele de tip Client, Ingredient, SoferLivrari și OperatorComenzi folosesc operații pe o bază de date de tip MYSQL.
+Operațiile CRUD pe obiectele de tip **Client**, **Ingredient**, **Opeatator Comanda** și **Sofer Livrari** folosesc operații pe o bază de date de tip MYSQL.
