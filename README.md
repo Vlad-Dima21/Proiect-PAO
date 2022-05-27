@@ -48,3 +48,4 @@ Fiecare acțiune de la etapa 1 este înregistrată într-un fișier CSV.
 ## Etapa 3
 ### Persistență
 Operațiile CRUD pe obiectele de tip **Client**, **Ingredient**, **Opeatator Comanda** și **Sofer Livrari** folosesc operații pe o bază de date de tip MYSQL.
+Modificările făcute pentru etapa 3 sunt in src/main/java/com/proiect/ .
