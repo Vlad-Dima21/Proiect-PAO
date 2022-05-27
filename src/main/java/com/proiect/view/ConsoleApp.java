@@ -2,8 +2,10 @@ package com.proiect.view;
 
 import com.proiect.domain.*;
 import com.proiect.services.*;
+import com.proiect.services.io.ConnectionManager;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,6 +25,15 @@ public class ConsoleApp {
     private AngajatService angajatService = new AngajatService();
     private SoferLivrariService soferLivrariService = new SoferLivrariService();
     private OperatorComenziService operatorComenziService = new OperatorComenziService();
+    private ConnectionManager connectionManager;
+
+    {
+        try {
+            connectionManager = ConnectionManager.getInstance();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void meniu() {
             String multeLinii = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -291,6 +302,11 @@ public class ConsoleApp {
             ingredienteService.writeDataToFiles();
         } catch (IOException e) {
             out.println("Eroare la scrierea in fisier a ingredientelor");
+        }
+        try {
+            connectionManager.close();
+        } catch (SQLException e) {
+            out.println("Eroare la inchiderea conexiunii cu baza de date");
         }
     }
 
